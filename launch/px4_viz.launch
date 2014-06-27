@@ -1,0 +1,13 @@
+<launch>
+	<!-- Visualise actual real-time data from PX4 over mavlink 
+	
+	-->
+
+	<!-- node pkg="mavlink_ros" type="mavlink_ros_serial" name="mavlink_ros_g" output="screen" args="-p /dev/ttyACM0 -b 57600"/ -->
+	
+	<!-- Use 3DR radio for comms, normally on /dev/USB0 -->
+	<node pkg="mavlink_ros" type="mavlink_ros_serial" name="mavlink_ros_g" output="screen" args="-p /dev/ttyUSB0 -b 57600"/>
+	
+	<node pkg="mav" type="px4_viz" name="px4_viz" output="screen" />
+	
+</launch>

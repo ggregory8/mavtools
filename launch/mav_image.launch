@@ -1,0 +1,5 @@
+<launch>
+	<!-- Display webcam images from MAV -->
+	<node pkg="image_view" type="image_view" name="image_view" output="screen" args="image:=/camera/image_raw"/>
+
+</launch>
