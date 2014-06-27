@@ -1,0 +1,16 @@
+<launch>
+	<!-- Create MAV static frame relative to the camera frame
+	- Should move this to the Odroid, but here is easier for adjusting
+	Rotate about the yaw axis 90degrees and rotate about pitch 180 degrees
+	This has moved to the Odroid mav_track.launch file
+	-->
+	<!-- node pkg="tf" type="static_transform_publisher" name="camera_to_mav" output="screen" 
+    	args="0 0 0 1.570796 3.14159265 0 mav camera 10" / -->
+
+	<!-- Create markers to Visualise position of MAV -->
+	<node pkg="mav" type="mav_basic" name="mav_viz" output="screen" />
+
+	<!-- Open RViz to visualise -->
+	<node pkg="rviz" type="rviz" name="rviz" 
+    args="-d $(find mav)/launch/mav_viz.rviz"/>
+</launch>
