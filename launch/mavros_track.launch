@@ -1,0 +1,8 @@
+<launch>
+  	<!--
+	Launch mav_track and mavros launch files
+	-->
+	
+	<include file="$(find mav)/launch/mav_track_libuvc.launch"/>
+	<include file="$(find mav)/launch/mavros.launch"/>
+</launch>
