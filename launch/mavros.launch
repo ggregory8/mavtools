@@ -1,0 +1,13 @@
+<launch>
+	<!-- 
+	Start mavros node
+	- 3DR radio usually on /dev/ttyUSB0
+	- Direct USB connection usually on /dev/ttyACM0
+	- Odroid serial (8-pin exspansion port) /dev/ttySAC0
+	-->
+	
+	<node pkg="mavros" type="mavros_node" name="mavros_node_u3" output="screen" args="_serial_port:=/dev/ttyACM0 _serial_baud:=115200 _system_id:=240 _target_system_id:=1 _target_component_id:=50 _startup_px4_usb_quirk:=true" />
+
+
+
+</launch>
