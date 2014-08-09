@@ -1,13 +1,37 @@
 <launch>
 	<!-- 
-	Start mavros node
+	Start mavros node for PX4 based FCU
 	- 3DR radio usually on /dev/ttyUSB0
 	- Direct USB connection usually on /dev/ttyACM0
 	- Odroid serial (8-pin exspansion port) /dev/ttySAC0
 	-->
 	
-	<node pkg="mavros" type="mavros_node" name="mavros_node_u3" output="screen" args="_serial_port:=/dev/ttySAC0 _serial_baud:=57600 _system_id:=240 _target_system_id:=1 _target_component_id:=50 _startup_px4_usb_quirk:=true" />
+	<arg name="fcu_url" default="serial:///dev/ttySAC0:57600" />
+	<arg name="gcs_url" default="" />
+	<arg name="tgt_system" default="1" />
+	<arg name="tgt_component" default="50" />
 
+	<!-- Note the following parameters aren't being set correctly.
+	- It rosparam shows it is setting these parameters but the vision_setpoint plugin doesn't use it??? 
+	- I had to set them in the actual source code until I can find out how this works
+	-->
+	<param name="vision/listen_tf" value="true" />
+	<param name="vision/child_frame_id" value="mav" />
 
+	<node pkg="mavros" type="mavros_node" name="mavros" required="true" clear_params="true" output="screen">
+		<param name="fcu_url" value="$(arg fcu_url)" />
+		<param name="gcs_url" value="$(arg gcs_url)" />
+		<param name="target_system_id" value="$(arg tgt_system)" />
+		<param name="target_component_id" value="$(arg tgt_component)" />
+		
+		<!-- bugs in command and waypoint plugins -->
+		<rosparam command="load" file="$(find mavros)/launch/px4_blacklist.yaml" />
+
+		<!-- enable heartbeat send and reduce timeout -->
+		<param name="conn_heartbeat" value="5.0" />
+		<param name="conn_timeout" value="10.0" />
+		<!-- enable mavlink autostart on USB port -->
+		<param name="startup_px4_usb_quirk" value="true" />
+	</node>
 
 </launch>
