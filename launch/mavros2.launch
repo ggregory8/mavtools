@@ -10,14 +10,7 @@
 	<arg name="gcs_url" default="" />
 	<arg name="tgt_system" default="1" />
 	<arg name="tgt_component" default="50" />
-
-	<!-- Note the following parameters aren't being set correctly.
-	- It rosparam shows it is setting these parameters but the vision_setpoint plugin doesn't use it??? 
-	- I had to set them in the actual source code until I can find out how this works
-	-->
-	<param name="vision/listen_tf" value="true" />
-	<param name="vision/child_frame_id" value="mav" />
-
+	
 	<node pkg="mavros" type="mavros_node" name="mavros" required="true" clear_params="true" output="screen">
 		<param name="fcu_url" value="$(arg fcu_url)" />
 		<param name="gcs_url" value="$(arg gcs_url)" />
@@ -32,6 +25,11 @@
 		<param name="conn_timeout" value="10.0" />
 		<!-- enable mavlink autostart on USB port -->
 		<param name="startup_px4_usb_quirk" value="true" />
+		
+		<!-- enable tf lookup between local_origin and mav frames -->
+		<param name="position/vision/listen_tf" value="true" />
+		<param name="position/vision/child_frame_id" value="mav" />
+
 	</node>
 
 </launch>
