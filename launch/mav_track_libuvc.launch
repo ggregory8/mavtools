@@ -7,6 +7,8 @@
   static_transform_publisher x y z qx qy qz qw frame_id child_frame_id  period_in_ms
   - all positions are in meters and angles are in radians
   0.785398163 = 45 degrees
+  1.5707963267949 = 90 degrees
+  3.14159265358979 = 180 degrees
   -->  
   
   <!-- Set translation of the ar_marker to the local origin
@@ -18,10 +20,10 @@
     	args="0 0 0 0 0 0 ar_marker_8 local_origin 10" />
 
   <!-- Create tarnsform for MAV relative to camera
-  Rotate yaw by 90 degrees and rotate pitch by 180 degrees
+  Rotate yaw by 180 degrees and rotate pitch by 180 degrees
   -->
   <node pkg="tf" type="static_transform_publisher" name="mav_to_camera" output="screen" 
-    	args="0 0 0 1.570796 3.14159265 0 mav camera 10" />
+    	args="0 0 0 3.14159265 3.14159265 0 mav camera 10" />
   <group ns="camera">
   	<node pkg="image_proc" type="image_proc" name="image_proc"/>
 	<node pkg="libuvc_camera" type="camera_node" name="mycam" output="screen">

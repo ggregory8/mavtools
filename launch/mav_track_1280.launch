@@ -1,11 +1,19 @@
 <launch>
-  <node pkg="tf" type="static_transform_publisher" name="world_to_cam" 
-    args="0 0 0.5 -1.57 0 -1.57 world camera 1" />
+  
+  <node pkg="tf" type="static_transform_publisher" name="ar_marker_to_local_origin" output="screen" 
+    	args="0 0 0 0 0 0 ar_marker_8 local_origin 10" />
+
+  <!-- Create tarnsform for MAV relative to camera
+  Rotate yaw by 180 degrees and rotate pitch by 180 degrees
+  -->
+  <node pkg="tf" type="static_transform_publisher" name="mav_to_camera" output="screen" 
+    	args="0 0 0 3.14159265 3.14159265 0 mav camera 10" />
+  
   <node ns="camera" pkg="image_proc" type="image_proc" name="image_proc"/>
   <node ns="camera" pkg="uvc_camera" type="uvc_camera_node" name="uvc_camera"
     output="screen">
-    <param name="width" type="int" value="1280" />
-    <param name="height" type="int" value="720" />
+    <param name="width" type="int" value="1920" />
+    <param name="height" type="int" value="1080" />
     <param name="fps" type="int" value="30" />
     <param name="frame" type="string" value="camera" />
     <param name="device" type="string" value="/dev/video0" />
