@@ -6,7 +6,7 @@
 	- Odroid serial (8-pin exspansion port) /dev/ttySAC0
 	-->
 	
-	<arg name="fcu_url" default="serial:///dev/ttySAC0:57600" />
+	<arg name="fcu_url" default="serial:///dev/ttySAC0:115200" />
 	<arg name="gcs_url" default="" />
 	<arg name="tgt_system" default="1" />
 	<arg name="tgt_component" default="50" />
